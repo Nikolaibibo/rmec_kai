@@ -1,5 +1,10 @@
-# Object file
-*.o
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
 
-# Ada Library Information
-*.ali
+# Other files and folders
+.settings/
+
+# secrets
+credentials_kai.json
