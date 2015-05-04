@@ -26,8 +26,8 @@ var isPowered = false;
 var waittime = 10000;
 
 // hastag/searchterm for API
-//var searchTerm = "nodejs";
-var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido";
+var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
+//var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido";
 
 
 function powerUp () {
