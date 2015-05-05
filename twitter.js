@@ -1,5 +1,4 @@
 var Twitter = require('twitter');
-var PushBullet = require('pushbullet');
 var pfio = require('piface-node');
 
 pfio.init();
@@ -8,8 +7,6 @@ pfio.init();
 var config = require('./config.json');
 var credentials = require('./credentials_kai.json');
 
-var twilio = require('twilio')(credentials.account_sid, credentials.auth_token);
-
 var client = new Twitter({
   consumer_key: credentials.twitter_consumer_key,
   consumer_secret: credentials.twitter_consumer_secret,
@@ -17,13 +14,12 @@ var client = new Twitter({
   access_token_secret: credentials.twitter_access_token_secret
 });
 
-var pusher = new PushBullet(credentials.pushbullet_key);
-
 // var for not sending too much sms - by now with bad setTimeout
 // TODO: change for performance
 var isBusy = false;
 var isPowered = false;
 var waittime = 10000;
+var pumpTime = 1100;
 
 // hastag/searchterm for API
 var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
