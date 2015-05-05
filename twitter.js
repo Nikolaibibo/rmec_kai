@@ -39,68 +39,24 @@ function powerDown () {
 // start reading stream
 function startStream (conn) {
 
-	console.log("starting stream");
+  console.log("LASS DIE HELDEN HEULEN - #kai");
+	console.log("searching for hashtags: " + searchTerm);
 
  	client.stream('statuses/filter', {track:searchTerm}, function(stream) {
     		stream.on('data', function(tweet) {
       			console.log("@" + tweet.user.screen_name + " :::: " + tweet.text + "  ::::  " + tweet.created_at);
       			//var tweetObject = {text:tweet.text, user:tweet.user.screen_name, time:tweet.created_at, location:tweet.user.location, userpic:tweet.user.profile_image_url};
-	 		      //sendSMS(tweet.text);
-            //sendNotification(tweet.user.screen_name, tweet.text);
-
             if (!isPowered) powerUp();
-
-            setTimeout(powerDown, 3000);
-
+            setTimeout(powerDown, pumpTime);
 		});
 
 		stream.on('error', function(error) {
-      sendAlertNotification();
+      //sendAlertNotification();
       // sendSMS("nodejs server error!");
+      powerDown();
       throw error;
   		});
 	});
-}
-
-// for monitoring
-function sendNotification (usr, txt) {
-    // pushbullet: send to macbook for monitoring
-    pusher.note(credentials.pushbullet_device_id_macbook, usr, txt, function(error, response) {
-    // response is the JSON response from the API
-    //console.log("pusher.note: " + response);
-  });
-}
-
-// for emergency reasons
-function sendAlertNotification () {
-    // pushbullet
-    pusher.note(credentials.pushbullet_device_id_macbook, config.pushbullet_msg_title, config.pushbullet_msg_body, function(error, response) {
-    // response is the JSON response from the API
-    console.log("pusher.note: " + response);
-  });
-}
-
-// send short message via twilio api
-function sendSMS (msg) {
-  console.log("sendSMS");
-
-  isBusy = true;
-
-  twilio.sms.messages.create({
-    to: credentials.num_to_text,
-    from: credentials.twilio_num,
-    body: msg
-  }, function(error, message) {
-    if (!error) {
-      console.log('Success! The SID for this SMS message is:');
-      console.log(message.sid);
-      console.log('Message sent on:');
-      console.log(message.dateCreated);
-
-      // TODO: change to more performant code -> setTimeout
-      setTimeout(resetStatus, waittime);
-    }
-  });
 }
 
 // reset status
