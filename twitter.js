@@ -32,8 +32,13 @@ function powerUp () {
 }
 
 function powerDown () {
-  isPowered = false;
+  //isPowered = false;
   pfio.digital_write(0,0);
+  setTimeout(doReset, 10000);
+}
+
+function doReset () {
+  isPowered = false;
 }
 
 // start reading stream
