@@ -19,7 +19,7 @@ var client = new Twitter({
 var isBusy = false;
 var isPowered = false;
 var waittime = 10000;
-var pumpTime = 1100;
+var pumpTime = 800;
 
 // hastag/searchterm for API
 var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
