@@ -34,7 +34,7 @@ function powerUp () {
 function powerDown () {
   //isPowered = false;
   pfio.digital_write(0,0);
-  setTimeout(doReset, 10000);
+  setTimeout(doReset, 5000);
 }
 
 function doReset () {
