@@ -4,15 +4,14 @@ var pfio = require('piface-node');
 // initializing the pfio lib for using the SPI and GPIO features of the piface board
 pfio.init();
 
-// config for strings, credentials for twitter, twilio and pushbullet git ignored
-var config = require('./config.json');
+// app credentials for twitter API, excluded via git.ignore
 var credentials = require('./credentials_kai.json');
 
 var client = new Twitter({
-  consumer_key: credentials.twitter_consumer_key,
-  consumer_secret: credentials.twitter_consumer_secret,
-  access_token_key: credentials.twitter_access_token_key,
-  access_token_secret: credentials.twitter_access_token_secret
+  	consumer_key: credentials.twitter_consumer_key,
+  	consumer_secret: credentials.twitter_consumer_secret,
+  	access_token_key: credentials.twitter_access_token_key,
+  	access_token_secret: credentials.twitter_access_token_secret
 });
 
 // var for not sending too much sms - by now with bad setTimeout
@@ -26,18 +25,18 @@ var pumpTime = 1200;
 var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
 
 function powerUp () {
-  isPowered = true;
-  pfio.digital_write(0,1);
+  	isPowered = true;
+  	pfio.digital_write(0,1);
 }
 
 function powerDown () {
-  //isPowered = false;
-  pfio.digital_write(0,0);
-  setTimeout(doReset, waittime);
+  	//isPowered = false;
+  	pfio.digital_write(0,0);
+  	setTimeout(doReset, waittime);
 }
 
 function doReset () {
-  isPowered = false;
+  	isPowered = false;
 }
 
 // start reading stream
