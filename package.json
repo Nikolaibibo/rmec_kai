@@ -20,8 +20,6 @@
   "author": "Nikolai Bockholt",
   "license": "ISC",
   "dependencies": {
-    "pushbullet": "^1.4.3",
-    "twilio": "^2.0.0",
     "twitter": "^1.2.5"
   }
 }
