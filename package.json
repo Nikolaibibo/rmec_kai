@@ -1,7 +1,7 @@
 {
   "name": "rmec_kai",
   "version": "1.0.0",
-  "description": "Check the twitter api stream for javascript",
+  "description": "Check the twitter api stream for occurance of a hashtag",
   "main": "twitter.js",
   "scripts": {
     "test": "node twitter.js"
