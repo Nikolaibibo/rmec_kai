@@ -1,6 +1,7 @@
 var Twitter = require('twitter');
 var pfio = require('piface-node');
 
+// initializing the pfio lib for using the SPI and GPIO features of the piface board
 pfio.init();
 
 // config for strings, credentials for twitter, twilio and pushbullet git ignored
@@ -18,13 +19,11 @@ var client = new Twitter({
 // TODO: change for performance
 var isBusy = false;
 var isPowered = false;
-var waittime = 10000;
+var waittime = 5000;
 var pumpTime = 1200;
 
 // hastag/searchterm for API
 var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
-//var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido";
-
 
 function powerUp () {
   isPowered = true;
@@ -34,7 +33,7 @@ function powerUp () {
 function powerDown () {
   //isPowered = false;
   pfio.digital_write(0,0);
-  setTimeout(doReset, 5000);
+  setTimeout(doReset, waittime);
 }
 
 function doReset () {
@@ -43,32 +42,25 @@ function doReset () {
 
 // start reading stream
 function startStream (conn) {
-
-  console.log("LASS DIE HELDEN HEULEN - #kai");
+	
+	console.log("LASS DIE HELDEN HEULEN - #kai");
 	console.log("searching for hashtags: " + searchTerm);
-
+	
+	// using statuses/filter for hashtag search
  	client.stream('statuses/filter', {track:searchTerm}, function(stream) {
+ 		
     		stream.on('data', function(tweet) {
       			console.log("@" + tweet.user.screen_name + " :::: " + tweet.text + "  ::::  " + tweet.created_at);
       			//var tweetObject = {text:tweet.text, user:tweet.user.screen_name, time:tweet.created_at, location:tweet.user.location, userpic:tweet.user.profile_image_url};
-            if (!isPowered) powerUp();
-            setTimeout(powerDown, pumpTime);
+            		if (!isPowered) powerUp();
+            		setTimeout(powerDown, pumpTime);
 		});
 
 		stream.on('error', function(error) {
-      //sendAlertNotification();
-      // sendSMS("nodejs server error!");
-      powerDown();
-      throw error;
+			powerDown();
+      			throw error;
   		});
 	});
 }
-
-// reset status
-function resetStatus () {
-  console.log("resetStatus");
-  isBusy = false;
-}
-
 // go
 startStream();
