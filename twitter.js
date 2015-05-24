@@ -14,15 +14,14 @@ var client = new Twitter({
   	access_token_secret: credentials.twitter_access_token_secret
 });
 
-// var for not sending too much sms - by now with bad setTimeout
 // TODO: change for performance
-var isBusy = false;
 var isPowered = false;
 var waittime = 5000;
-var pumpTime = 1200;
+var pumpTime = 2000;
 
 // hastag/searchterm for API
-var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
+//var searchTerm = "#Kai,#grexit,#qualitätsjournalismus,#paidcontent,#bushido,#valleytouri,#empörungsgesellschaft";
+var searchTerm = "nodejs";
 
 function powerUp () {
   	isPowered = true;
@@ -41,13 +40,13 @@ function doReset () {
 
 // start reading stream
 function startStream (conn) {
-	
+
 	console.log("LASS DIE HELDEN HEULEN - #kai");
 	console.log("searching for hashtags: " + searchTerm);
-	
+
 	// using statuses/filter for hashtag search
  	client.stream('statuses/filter', {track:searchTerm}, function(stream) {
- 		
+
     		stream.on('data', function(tweet) {
       			console.log("@" + tweet.user.screen_name + " :::: " + tweet.text + "  ::::  " + tweet.created_at);
       			//var tweetObject = {text:tweet.text, user:tweet.user.screen_name, time:tweet.created_at, location:tweet.user.location, userpic:tweet.user.profile_image_url};
